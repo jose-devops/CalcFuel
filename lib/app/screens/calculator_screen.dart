@@ -10,20 +10,20 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
-  String _display = ''; // Mostra a conta sendo digitada
-  String _displayTotal = ''; // Mostra o resultado da conta
+  String _display = '';
+  String _displayTotal = '';
   String _operador = '';
   double? _num1;
   double? _num2;
 
-  // Adiciona números e operadores ao display
+
   void _addToDisplay(String value) {
     setState(() {
       _display += value;
     });
   }
 
-  // Apagar tudo
+
   void _clearAll() {
     setState(() {
       _display = '';
@@ -34,7 +34,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     });
   }
 
-  // Apagar o último caractere
+
   void _clear() {
     setState(() {
       if (_display.isNotEmpty) {
@@ -43,7 +43,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     });
   }
 
-  // Adiciona operador ao display e define o primeiro número
+
   void _addOperator(String operator) {
     if (_display.isNotEmpty) {
       setState(() {
@@ -54,40 +54,27 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     }
   }
 
-  // Função para somar
+
   void _somar() {
     _addOperator('+');
   }
 
-  // Função para multiplicar
+
   void _multiplicar() {
     _addOperator('x');
   }
 
-  // Função para dividir
+
   void _dividir() {
     _addOperator('/');
   }
 
-  // Função para subtrair
+
   void _subtrair() {
     _addOperator('-');
   }
 
-  // Inverter o sinal do número
-  void _negativar() {
-    setState(() {
-      if (_display.isNotEmpty && _display != '0') {
-        if (_display.startsWith('-')) {
-          _display = _display.substring(1);
-        } else {
-          _display = '-' + _display;
-        }
-      }
-    });
-  }
 
-  // Realiza o cálculo da expressão
   void _calcular_total() {
     if (_operador.isNotEmpty && _display.contains(_operador)) {
       final partes = _display.split(_operador);
@@ -105,11 +92,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           if (_num2 != 0) {
             total = _num1! / _num2!;
           } else {
-            _displayTotal = 'Erro'; // Não pode dividir por zero
+            _displayTotal = 'Erro';
             return;
           }
         }
         setState(() {
+          _clearAll();
           _displayTotal = total.toString();
         });
       }
@@ -128,7 +116,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           // Display
           Container(
             height: 406,
-            color: Colors.brown,
+            color: Colors.black,
             child: Column(
               children: [
                 // Conta
@@ -136,21 +124,21 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.all(20.0),
                   height: 203,
-                  color: Colors.teal,
+
                   child: Text(
                     _display.isEmpty ? '' : _display,
-                    style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                 ),
                 // Total
                 Container(
                   height: 203,
-                  color: Colors.greenAccent,
+
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.all(20.0),
                   child: Text(
                     _displayTotal.isEmpty ? '' : _displayTotal,
-                    style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold, color: Color(0xFF00FF00)),
                   ),
                 ),
               ],
@@ -159,13 +147,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           // Botões
           Container(
             height: 500,
-            color: Colors.black12,
+            color: Colors.black,
             padding: const EdgeInsets.all(40.0),
             child: Column(
               children: [
-                // Primeira linha de botões
 
-                // Segunda linha de botões
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -173,9 +159,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () => _addToDisplay('7'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             '7',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Colors.white),
                           ),
                         ),
                       ),
@@ -183,9 +172,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () => _addToDisplay('8'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             '8',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Colors.white),
                           ),
                         ),
                       ),
@@ -193,9 +185,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () => _addToDisplay('9'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             '9',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Colors.white),
                           ),
                         ),
                       ),
@@ -203,9 +198,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: _multiplicar,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             'x',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Color(0xFF00FF00)),
                           ),
                         ),
                       ),
@@ -214,7 +212,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   ),
                 ),
                 SizedBox(width: 10),
-                // Terceira linha de botões
+
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -222,9 +220,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () => _addToDisplay('4'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             '4',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Colors.white),
                           ),
                         ),
                       ),
@@ -232,9 +233,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () => _addToDisplay('5'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             '5',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Colors.white),
                           ),
                         ),
                       ),
@@ -242,9 +246,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () => _addToDisplay('6'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             '6',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Colors.white),
                           ),
                         ),
                       ),
@@ -252,9 +259,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: _subtrair,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             '-',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Color(0xFF00FF00)),
                           ),
                         ),
                       ),
@@ -263,7 +273,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   ),
                 ),
                 SizedBox(width: 10),
-                // Quarta linha de botões
+
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -271,9 +281,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () => _addToDisplay('1'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             '1',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Colors.white),
                           ),
                         ),
                       ),
@@ -281,9 +294,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () => _addToDisplay('2'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             '2',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Colors.white),
                           ),
                         ),
                       ),
@@ -291,9 +307,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () => _addToDisplay('3'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             '3',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Colors.white),
                           ),
                         ),
                       ),
@@ -301,9 +320,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: _somar,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             '+',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Color(0xFF00FF00)),
                           ),
                         ),
                       ),
@@ -317,13 +339,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(width: 10),
                       Expanded(
                         child: ElevatedButton(
                           onPressed: _clearAll,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             'C',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Colors.white),
                           ),
                         ),
                       ),
@@ -331,20 +355,30 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () => _addToDisplay('0'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             '0',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Colors.white),
                           ),
                         ),
                       ),
                       SizedBox(width: 10),
                       Expanded(
-
                         child: ElevatedButton(
-                          onPressed: _calcular_total,
-                          child: Text(
-                            '=',
-                            style: TextStyle(fontSize: 40),
+                          onPressed: _clear,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40.0),
+                            ),
+                            padding: EdgeInsets.all(18),
+                          ),
+                          child: Icon(
+                            Icons.backspace_outlined,
+                            size: 40,
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -352,17 +386,39 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: _dividir,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
                           child: Text(
                             '/',
-                            style: TextStyle(fontSize: 40),
+                            style: TextStyle(fontSize: 40, color: Color(0xFF00FF00)),
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
                 SizedBox(width: 10),
+                // Botão de "="
+                Expanded(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: ElevatedButton(
+                          onPressed: _calcular_total,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF333333),
+                          ),
+                          child: Text(
+                            '=',
+                            style: TextStyle(fontSize: 40, color: Color(0xFF00FF00)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           )

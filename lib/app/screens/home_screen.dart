@@ -10,50 +10,36 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
-
       ),
       drawer: DrawerCustom(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Center(  // Centraliza todo o conteúdo
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.all(26.0),
+              decoration: BoxDecoration(
 
-        children: [
-
-
-          Container(
-            padding: EdgeInsets.all(26.0),
-            width: 500,
-            height: 600,
-            color: Colors.teal,
-
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text('Bem vindo!')
-                  ],
-                ),
-
-                Container(
-                  child: Column(
-                    children: [
-                      Image.asset(''),
-
-                    ],
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20),
+                  Image.asset(
+                    'assets/images/logo.png',
+                    width: 400,
+                    height:400,
+                    fit: BoxFit.contain,
                   ),
-
-                )
-
-              ],
+                ],
+              ),
             ),
-
-          ),
-
-        ],
-
-
+          ],
+        ),
       ),
-
     );
   }
 }
